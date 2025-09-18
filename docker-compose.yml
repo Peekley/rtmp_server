@@ -1,0 +1,32 @@
+services:
+  rtmp-server:
+    image: rtmp-server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "1935:1935"
+      - "1936:1936"
+      - "80:80"
+    volumes:
+      - ./hls:/app/hls
+      - ./recordings:/app/recordings
+      # - ./certs:/app/certs # Uncomment for RTMPS
+    depends_on:
+      - postgres
+    environment:
+      - MIX_ENV=prod
+    env_file:
+      - .env
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: rtmp_server_dev
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
