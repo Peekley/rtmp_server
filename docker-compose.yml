@@ -10,8 +10,8 @@ services:
       - "80:80"
     volumes:
       - ./hls:/app/hls
-      - ./recordings:/app/recordings
-      # - ./certs:/app/certs # Uncomment for RTMPS
+      - ./records:/app/records
+      # - ./certs:/app/certs
     depends_on:
       - postgres
     environment:

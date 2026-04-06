@@ -3,9 +3,9 @@ defmodule RtmpServer.MixProject do
 
   def project do
     [
-      app: :application,
+      app: :rtmp_server,
       version: "0.1.0",
-      elixir: "~> 1.18",
+      elixir: "~> 1.19",
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -14,24 +14,27 @@ defmodule RtmpServer.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      mod: {RtmpServer.Application, []}
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
       {:membrane_core, "~> 1.2"},
-      {:membrane_rtmp_plugin, "~> 0.28"},
-      {:membrane_hls_plugin, "~> 1.1.4"},
+      {:membrane_rtmp_plugin, "~> 0.29"},
       {:membrane_mp4_plugin, "~> 0.36"},
       {:membrane_file_plugin, "~> 0.17"},
-      {:ecto_sql, "~> 3.12"},
-      {:postgrex, ">= 0.18.0"},
-      {:bandit, "~> 1.5"},
-      {:dotenv, "~> 3.1"}
+      {:membrane_webrtc_plugin, "~> 0.26"},
+      {:membrane_http_adaptive_stream_plugin, "~> 0.20"},
+      {:ecto_sql, "~> 3.13"},
+      {:postgrex, "~> 0.21.1"},
+      {:bandit, "~> 1.5"},  # For serving HLS via HTTPs
+      {:dotenv, "~> 3.1"},
+      {:phoenix, "~> 1.7"},  # For WebSocket endpoint
+      {:jason, "~> 1.4"},    # For JSON signaling
+      {:base32, "~> 1.0"}  # New: For base32 encoding/decoding
     ]
   end
 end
