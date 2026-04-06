@@ -1,6 +1,6 @@
 # RtmpServer
 
-**TODO: Add description**
+Elixir based rtmp server backend for Peekley.
 
 ## Installation
 
